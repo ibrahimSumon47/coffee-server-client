@@ -2,12 +2,26 @@ import React from "react";
 
 const AddCoffee = () => {
     
-    
+    const handleAddCoffee = e => {
+        e.preventDefault();
+
+        const form = e.target
+        const name = form.name.value
+        const quantity = form.quantity.value
+        const supplier = form.supplier.value
+        const taste = form.taste.value
+        const category = form.category.value
+        const details = form.details.value
+        const img = form.img.value
+
+        const newCoffee = {name, quantity, supplier, taste, category, details, img}
+        console.log(newCoffee);
+    }
 
   return (
     <div className="bg-[#F4F3F0] p-24">
       <h2 className="text-3xl font-extrabold">Add a Coffee</h2>
-      <form>
+      <form onSubmit={handleAddCoffee}>
         {/* name and quantity row */}
         <div className="md:flex mb-8">
             {/* Coffee Name */}
@@ -39,7 +53,7 @@ const AddCoffee = () => {
             </label>
           </div>
         </div>
-        {/* supplier and test */}
+        {/* supplier and taste */}
         <div className="md:flex mb-8">
             {/* supplier */}
           <div className="form-control md:w-1/2">
