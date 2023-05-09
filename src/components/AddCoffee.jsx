@@ -1,22 +1,51 @@
 import React from "react";
+import Swal from 'sweetalert2'
 
 const AddCoffee = () => {
-    
-    const handleAddCoffee = e => {
-        e.preventDefault();
+  const handleAddCoffee = (e) => {
+    e.preventDefault();
 
-        const form = e.target
-        const name = form.name.value
-        const quantity = form.quantity.value
-        const supplier = form.supplier.value
-        const taste = form.taste.value
-        const category = form.category.value
-        const details = form.details.value
-        const img = form.img.value
+    const form = e.target;
+    const name = form.name.value;
+    const quantity = form.quantity.value;
+    const supplier = form.supplier.value;
+    const taste = form.taste.value;
+    const category = form.category.value;
+    const details = form.details.value;
+    const img = form.img.value;
 
-        const newCoffee = {name, quantity, supplier, taste, category, details, img}
-        console.log(newCoffee);
-    }
+    const newCoffee = {
+      name,
+      quantity,
+      supplier,
+      taste,
+      category,
+      details,
+      img,
+    };
+    console.log(newCoffee);
+
+    // send data to the server
+    fetch("http://localhost:5000/coffee", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCoffee),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if(data.insertedId){
+            Swal.fire({
+                title: 'Success!',
+                text: 'User Added Successfully',
+                icon: 'success',
+                confirmButtonText: 'Cool'
+              })
+        }
+      });
+  };
 
   return (
     <div className="bg-[#F4F3F0] p-24">
@@ -24,7 +53,7 @@ const AddCoffee = () => {
       <form onSubmit={handleAddCoffee}>
         {/* name and quantity row */}
         <div className="md:flex mb-8">
-            {/* Coffee Name */}
+          {/* Coffee Name */}
           <div className="form-control md:w-1/2">
             <label className="label">
               <span className="label-text">Coffee Name</span>
@@ -55,7 +84,7 @@ const AddCoffee = () => {
         </div>
         {/* supplier and taste */}
         <div className="md:flex mb-8">
-            {/* supplier */}
+          {/* supplier */}
           <div className="form-control md:w-1/2">
             <label className="label">
               <span className="label-text">Supplier Name</span>
@@ -86,7 +115,7 @@ const AddCoffee = () => {
         </div>
         {/* category and details */}
         <div className="md:flex mb-8">
-            {/* category */}
+          {/* category */}
           <div className="form-control md:w-1/2">
             <label className="label">
               <span className="label-text">Category</span>
