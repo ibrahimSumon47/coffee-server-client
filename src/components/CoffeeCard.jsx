@@ -1,5 +1,6 @@
 import { data } from "autoprefixer";
 import React from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const CoffeeCard = ({ coffee }) => {
@@ -51,7 +52,7 @@ const CoffeeCard = ({ coffee }) => {
         <div className="card-actions justify-end">
           <div className="btn-group btn-group-vertical space-y-4">
             <button className="btn">View</button>
-            <button className="btn">Edit</button>
+            <Link to={`updateCoffee/${_id}`}><button className="btn">Edit</button></Link>
             <button
               className="btn bg-orange-500"
               onClick={() => handleDelete(_id)}
